@@ -1,0 +1,31 @@
+CREATE DATABASE gestion_automoviles;
+
+USE gestion_automoviles;
+
+CREATE TABLE automoviles (
+    placa INT PRIMARY KEY,
+    marca VARCHAR(50) NOT NULL,
+    modelo VARCHAR(50) NOT NULL,
+    año INT NOT NULL,
+    color VARCHAR(30) NOT NULL,
+    num_motor VARCHAR(30) NOT NULL,
+    num_chasis VARCHAR(30) NOT NULL,
+    tipo_vehiculo VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE marca (
+    id_marca INT AUTO_INCREMENT PRIMARY KEY,
+    marca VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE modelo (
+    id_modelo INT AUTO_INCREMENT PRIMARY KEY,
+    id_marca INT NOT NULL,
+    modelo VARCHAR(30) NOT NULL,
+    FOREIGN KEY (id_marca) REFERENCES marca(id_marca) ON DELETE CASCADE
+);
+
+CREATE TABLE tipo_vehiculo (
+    id_tipovehiculo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_tipo VARCHAR(30) NOT NULL
+);
