@@ -29,3 +29,29 @@ CREATE TABLE tipo_vehiculo (
     id_tipovehiculo INT AUTO_INCREMENT PRIMARY KEY,
     nombre_tipo VARCHAR(30) NOT NULL
 );
+
+CREATE TABLE propietarios (
+    id_propietario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_completo VARCHAR(255) NOT NULL,
+    direccion VARCHAR(255),
+    telefono VARCHAR(20),
+    correo_electronico VARCHAR(100),
+    nacionalidad VARCHAR(100),
+    genero ENUM('Masculino', 'Femenino'),
+    numero_licencia VARCHAR(50),
+    fecha_emision_licencia DATE,
+    fecha_expiracion_licencia DATE,
+    tipo_licencia VARCHAR(10)
+);
+
+ALTER TABLE automoviles
+ADD COLUMN id_propietario INT NOT NULL,
+ADD FOREIGN KEY (id_propietario) REFERENCES propietarios(id_propietario) ON DELETE CASCADE,
+DROP COLUMN marca,
+ADD COLUMN id_marca INT NOT NULL,
+ADD FOREIGN KEY (id_marca) REFERENCES marca(id_marca) ON DELETE CASCADE,
+DROP COLUMN modelo,
+ADD COLUMN id_modelo INT NOT NULL,
+ADD FOREIGN KEY (id_modelo) REFERENCES modelo(id_modelo) ON DELETE CASCADE,
+CHANGE COLUMN tipo_vehiculo id_tipovehiculo INT,
+ADD FOREIGN KEY (id_tipovehiculo) REFERENCES tipo_vehiculo(id_tipovehiculo) ON DELETE CASCADE;
