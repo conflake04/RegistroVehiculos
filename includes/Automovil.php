@@ -4,14 +4,15 @@ class Automovil {
     private $table_name = "automoviles"; // Nombre de la tabla
 
     // Propiedades de la clase
-    public $marca;
-    public $modelo;
+    public $id_marca;
+    public $id_modelo;
     public $anio;
     public $color;
     public $placa;
     public $num_motor;
     public $num_chasis;
-    public $tipo_vehiculo;
+    public $id_tipovehiculo;
+    public $id_propietario;
 
     // Constructor que recibe la conexión a la base de datos
     public function __construct($db) {
@@ -21,30 +22,32 @@ class Automovil {
     // Método para registrar un nuevo automóvil
     public function registrar() {
         // Query para insertar un nuevo automóvil
-        $query = "INSERT INTO " . $this->table_name . " (marca, modelo, año, color, placa, num_motor, num_chasis, tipo_vehiculo) VALUES (:marca, :modelo, :anio, :color, :placa, :num_motor, :num_chasis, :tipo_vehiculo)";
+        $query = "INSERT INTO " . $this->table_name . " (id_marca, id_modelo, año, color, placa, num_motor, num_chasis, id_tipovehiculo, id_propietario) VALUES (:id_marca, :id_modelo, :anio, :color, :placa, :num_motor, :num_chasis, :id_tipovehiculo, :id_propietario)";
 
         // Preparar la declaración
         $stmt = $this->conn->prepare($query);
 
         // Limpiar los datos para evitar inyección SQL
-        $this->marca = htmlspecialchars(strip_tags($this->marca));
-        $this->modelo = htmlspecialchars(strip_tags($this->modelo));
+        $this->id_marca = htmlspecialchars(strip_tags($this->id_marca));
+        $this->id_modelo = htmlspecialchars(strip_tags($this->id_modelo));
         $this->anio = htmlspecialchars(strip_tags($this->anio));
         $this->color = htmlspecialchars(strip_tags($this->color));
         $this->placa = htmlspecialchars(strip_tags($this->placa));
         $this->num_motor = htmlspecialchars(strip_tags($this->num_motor));
         $this->num_chasis = htmlspecialchars(strip_tags($this->num_chasis));
-        $this->tipo_vehiculo = htmlspecialchars(strip_tags($this->tipo_vehiculo));
+        $this->id_tipovehiculo = htmlspecialchars(strip_tags($this->id_tipovehiculo));
+        $this->id_propietario = htmlspecialchars(strip_tags($this->id_propietario));
 
         // Enlazar los parámetros
-        $stmt->bindParam(":marca", $this->marca);
-        $stmt->bindParam(":modelo", $this->modelo);
+        $stmt->bindParam(":id_marca", $this->id_marca);
+        $stmt->bindParam(":id_modelo", $this->id_modelo);
         $stmt->bindParam(":anio", $this->anio);
         $stmt->bindParam(":color", $this->color);
         $stmt->bindParam(":placa", $this->placa);
         $stmt->bindParam(":num_motor", $this->num_motor);
         $stmt->bindParam(":num_chasis", $this->num_chasis);
-        $stmt->bindParam(":tipo_vehiculo", $this->tipo_vehiculo);
+        $stmt->bindParam(":id_tipovehiculo", $this->id_tipovehiculo);
+        $stmt->bindParam(":id_propietario", $this->id_propietario);
 
         // Ejecutar la declaración
         if ($stmt->execute()) {
@@ -69,14 +72,15 @@ class Automovil {
         // Verificar si se encontraron resultados
         if ($row) {
             // Asignar los valores obtenidos a las propiedades del objeto
-            $this->marca = $row['marca'];
-            $this->modelo = $row['modelo'];
+            $this->id_marca = $row['id_marca'];
+            $this->id_modelo = $row['id_modelo'];
             $this->anio = $row['año'];
             $this->color = $row['color'];
             $this->placa = $row['placa'];
             $this->num_motor = $row['num_motor'];
             $this->num_chasis = $row['num_chasis'];
-            $this->tipo_vehiculo = $row['tipo_vehiculo'];            
+            $this->id_tipovehiculo = $row['id_tipovehiculo'];
+            $this->id_propietario = $row['id_propietario'];
 
             return $row; // Devuelve los datos encontrados
         }
@@ -88,23 +92,23 @@ class Automovil {
     public function actualizar() {
         // Query para actualizar los datos
         $query = "UPDATE " . $this->table_name . " 
-                  SET marca = :marca, modelo = :modelo, anio = :anio, color = :color, placa = :placa 
+                  SET id_marca = :id_marca, id_modelo = :id_modelo, anio = :anio, color = :color, placa = :placa 
                   WHERE id = :id";
 
         // Preparar la declaración
         $stmt = $this->conn->prepare($query);
 
         // Limpiar los datos
-        $this->marca = htmlspecialchars(strip_tags($this->marca));
-        $this->modelo = htmlspecialchars(strip_tags($this->modelo));
+        $this->id_marca = htmlspecialchars(strip_tags($this->id_marca));
+        $this->id_modelo = htmlspecialchars(strip_tags($this->id_modelo));
         $this->anio = htmlspecialchars(strip_tags($this->anio));
         $this->color = htmlspecialchars(strip_tags($this->color));
         $this->placa = htmlspecialchars(strip_tags($this->placa));
         $this->id = htmlspecialchars(strip_tags($this->id));
 
         // Enlazar los parámetros
-        $stmt->bindParam(':marca', $this->marca);
-        $stmt->bindParam(':modelo', $this->modelo);
+        $stmt->bindParam(':id_marca', $this->id_marca);
+        $stmt->bindParam(':id_modelo', $this->id_modelo);
         $stmt->bindParam(':anio', $this->anio);
         $stmt->bindParam(':color', $this->color);
         $stmt->bindParam(':placa', $this->placa);
