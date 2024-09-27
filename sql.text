@@ -15,13 +15,13 @@ CREATE TABLE automoviles (
 
 CREATE TABLE marca (
     id_marca INT AUTO_INCREMENT PRIMARY KEY,
-    marca VARCHAR(30) NOT NULL
+    nombre_marca VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE modelo (
     id_modelo INT AUTO_INCREMENT PRIMARY KEY,
     id_marca INT NOT NULL,
-    modelo VARCHAR(30) NOT NULL,
+    nombre_modelo VARCHAR(30) NOT NULL,
     FOREIGN KEY (id_marca) REFERENCES marca(id_marca) ON DELETE CASCADE
 );
 
@@ -55,3 +55,16 @@ ADD COLUMN id_modelo INT NOT NULL,
 ADD FOREIGN KEY (id_modelo) REFERENCES modelo(id_modelo) ON DELETE CASCADE,
 CHANGE COLUMN tipo_vehiculo id_tipovehiculo INT,
 ADD FOREIGN KEY (id_tipovehiculo) REFERENCES tipo_vehiculo(id_tipovehiculo) ON DELETE CASCADE;
+
+
+INSERT INTO marcas (nombre_marca) VALUES ('Toyota'), ('Ford'), ('Honda');
+
+
+INSERT INTO modelo (id_marca, nombre_modelo) VALUES 
+(1, 'Corolla'), 
+(1, 'Camry'), 
+(2, 'Mustang'), 
+(3, 'Civic'), 
+(3, 'Accord');
+
+INSERT INTO tipos_vehiculo (nombre_tipo) VALUES ('Sedán'), ('SUV'), ('Camioneta');
