@@ -83,7 +83,7 @@ input:focus {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.styled-select option {
+.lista option {
     padding: 10px;
     background-color: #fff;
     color: #333;

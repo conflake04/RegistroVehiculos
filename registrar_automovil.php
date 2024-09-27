@@ -60,7 +60,29 @@
         <input type="text" id="num_chasis" name="num_chasis" required><br>
 
         <label for="tipo_vehiculo">Tipo de Vehículo:</label>
-        <input type="text" id="tipo_vehiculo" name="tipo_vehiculo" required><br>
+        <select class="lista" name="tipo_vehiculo" id="tipo_vehiculo">
+            <option value="">Seleccione el tipo de automovil</option>
+            <?php
+            include 'includes/TipoVehiculo.php';
+
+            $tipoVehiculo = new TipoVehiculo($db);
+            
+            $stmt = $tipoVehiculo->traerTiposVehiculo();
+            echo "<option value=''>Error</option>";
+            if ($stmt->rowCount() > 0) {
+        
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $id_tipovehiculo = $row['id_tipovehiculo'];
+                    $nombre_tipo = $row['nombre_tipo'];
+
+                    echo "<option value='{$id_tipovehiculo}'>{$nombre_tipo}</option>";
+
+                }
+            } else {
+                echo "<option value=''>Error</option>";
+            }
+            ?>
+        </select>
         
         <input type="submit" value="Registrar">
     </form>
